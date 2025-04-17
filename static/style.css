@@ -1,0 +1,294 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  color: #1c1e21;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: #1877f2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus, button:focus, input:focus, textarea:focus {
+  outline: 2px solid #1877f2;
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: 700px;
+  margin: 80px auto;
+  padding: 20px;
+}
+
+/* Header/Navbar */
+nav {
+  background-color: #ffffff;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+nav a {
+  margin: 0 10px;
+  font-weight: 500;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1877f2;
+}
+
+/* Forms */
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+button, input[type="submit"] {
+  background-color: #1877f2;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover, input[type="submit"]:hover {
+  background-color: #155dc1;
+}
+
+/* Buttons */
+.btn {
+  padding: 6px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin-right: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+.btn-danger {
+  background: #dc3545;
+}
+
+.btn-danger:hover {
+  background: #b02a37;
+}
+
+.btn-small {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+}
+
+/* Icon Buttons (like/bookmark) */
+.icon-btn {
+  background: #fff;
+  border: #18191a;
+  font-size: 1.2rem;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.icon-btn:hover {
+  color: #1877f2;
+}
+
+.icon-btn.liked {
+  color: #e0245e;
+}
+
+.icon-btn.bookmarked {
+  color: #f7b500;
+}
+
+/* Posts */
+.post {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.post img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.post .info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #606770;
+}
+
+.post-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.post-detail img.post-image {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: gray;
+  margin-bottom: 15px;
+}
+
+/* Comments */
+.comment-section {
+  margin-top: 15px;
+}
+
+.comment {
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.comment small {
+  display: block;
+  margin-top: 4px;
+  color: #555;
+}
+
+/* Flash messages */
+.alert {
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.alert-success { background-color: #d4edda; color: #155724; }
+.alert-danger { background-color: #f8d7da; color: #721c24; }
+.alert-warning { background-color: #fff3cd; color: #856404; }
+.alert-info    { background-color: #d1ecf1; color: #0c5460; }
+
+/* Dark Mode */
+body.dark {
+  background-color: #18191a;
+  color: #e4e6eb;
+}
+
+body.dark nav {
+  background-color: #242526;
+  border-color: #3a3b3c;
+}
+
+body.dark .container,
+body.dark .post,
+body.dark form {
+  background-color: #242526;
+  color: #e4e6eb;
+}
+
+body.dark input,
+body.dark textarea {
+  background-color: #3a3b3c;
+  color: #e4e6eb;
+  border: 1px solid #555;
+}
+
+body.dark .alert {
+  opacity: 0.9;
+}
+
+body.dark .comment {
+  background-color: #3a3b3c;
+}
+
+body.dark .comment small {
+  color: #aaa;
+}
+
+body.dark .icon-btn {
+  color: #aaa;
+}
+
+body.dark .icon-btn:hover {
+  color: #fff;
+}
+
+body.dark .icon-btn.liked {
+  color: #f06292;
+}
+
+body.dark .icon-btn.bookmarked {
+  color: #ffd54f;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .container {
+    margin: 60px 10px;
+    padding: 15px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Override form styles for comment form only */
+.comment-section form {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  margin-bottom: 20px;
+}

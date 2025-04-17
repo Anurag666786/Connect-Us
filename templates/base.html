@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Blog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Local Font Awesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/all.css') }}">
+
+    <style>
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 10px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleBtn = document.getElementById('darkToggle');
+            const isDark = localStorage.getItem('darkMode') === 'true';
+
+            if (isDark) {
+                document.body.classList.add('dark');
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if 'user_id' in session %}
+            <a href="{{ url_for('create') }}">Create Post</a>
+            <a href="{{ url_for('bookmarks') }}">Bookmarked Posts</a>  <!-- Link to Bookmarked Posts -->
+            <a href="{{ url_for('logout') }}">Logout ({{ session['username'] }})</a>
+        {% else %}
+            <a href="{{ url_for('signup') }}">Signup</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+        <a href="{{ url_for('about') }}">About</a>
+        <button id="darkToggle" class="btn">Toggle Dark Mode</button>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Connect Us. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Edit Post</h2>
+    <form method="POST">
+        <input type="text" name="title" placeholder="Title" value="{{ post.title }}" required>
+        <textarea name="content" placeholder="Content" required>{{ post.content }}</textarea>
+        <input type="submit" value="Update Post">
+    </form>
+</div>
+{% endblock %}
