@@ -41,14 +41,12 @@
 </head>
 <body>
     <nav>
-        <div class="nav-top-row">
+        <div class="nav-header">
             <a href="{{ url_for('home') }}" class="logo">ConnectUs</a>
             <form action="{{ url_for('search') }}" method="GET" class="search-form">
                 <input type="text" name="query" placeholder="Search..." aria-label="Search">
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-        </div>
-        <div class="nav-header">
             <button id="menuToggle" class="menu-toggle">☰</button>
         </div>
         <div class="nav-links">
