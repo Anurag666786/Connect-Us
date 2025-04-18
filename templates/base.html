@@ -69,6 +69,16 @@
             {% endif %}
         {% endwith %}
 
+        <!-- Only show search bar on homepage -->
+        {% if request.path == '/' %}
+            <div class="search-container">
+                <form action="/search" method="get">
+                    <input type="text" name="q" placeholder="Search posts..." required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        {% endif %}
+
         {% block content %}{% endblock %}
     </div>
 

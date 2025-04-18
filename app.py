@@ -216,6 +216,7 @@ def search():
     if query:
         posts = Post.query.filter(Post.title.contains(query) | Post.content.contains(query)).all()
         return render_template('search_results.html', posts=posts, query=query)
+    flash("No search query provided.", "warning")
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
