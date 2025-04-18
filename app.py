@@ -17,17 +17,19 @@ UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# DB config for PostgreSQL
+# DB config for PostgreSQL (Render) and SQLite (Local)
 db_uri = os.getenv("DATABASE_URL")
-if db_uri.startswith("postgres://"):
+if db_uri and db_uri.startswith("postgres://"):
     db_uri = db_uri.replace("postgres://", "postgresql://", 1)
+else:
+    db_uri = 'sqlite:///local_db.db'  # SQLite for local development
+
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+
 from flask_migrate import Migrate
 migrate = Migrate(app, db)
-
-# ... [rest of your routes unchanged] ...
-# Paste the full content from your previous `app.py` here (no changes needed beyond DB config)
 
 @app.route('/')
 def home():
