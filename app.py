@@ -209,5 +209,14 @@ def delete_comment(comment_id):
     flash("Comment deleted.", "info")
     return redirect(url_for('view_post', post_id=post_id))
 
+# Search route
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('q')
+    if query:
+        posts = Post.query.filter(Post.title.contains(query) | Post.content.contains(query)).all()
+        return render_template('search_results.html', posts=posts, query=query)
+    return redirect(url_for('home'))
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -56,6 +56,13 @@
                 <a href="{{ url_for('login') }}">Login</a>
             {% endif %}
             <a href="{{ url_for('about') }}">About</a>
+            
+            <!-- Search Box -->
+            <form action="{{ url_for('search') }}" method="GET" class="search-form">
+                <input type="text" name="query" placeholder="Search..." aria-label="Search">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            
             <button id="darkToggle" class="btn">Toggle Dark Mode</button>
         </div>
     </nav>

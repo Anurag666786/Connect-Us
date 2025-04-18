@@ -356,3 +356,17 @@ body.dark .menu-toggle {
     font-size: 1rem;
   }
 }
+
+/* Search Box Styles */
+.search-box {
+  width: 200px;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 0 10px;
+}
+
+.search-box:focus {
+  border-color: #1877f2;
+}
