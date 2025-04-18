@@ -29,7 +29,6 @@
                 localStorage.setItem('darkMode', document.body.classList.contains('dark'));
             });
 
-            // Hamburger menu toggle
             const menuToggle = document.getElementById('menuToggle');
             const navLinks = document.querySelector('.nav-links');
             if (menuToggle && navLinks) {
@@ -42,8 +41,14 @@
 </head>
 <body>
     <nav>
-        <div class="nav-header">
+        <div class="nav-top-row">
             <a href="{{ url_for('home') }}" class="logo">ConnectUs</a>
+            <form action="{{ url_for('search') }}" method="GET" class="search-form">
+                <input type="text" name="query" placeholder="Search..." aria-label="Search">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <div class="nav-header">
             <button id="menuToggle" class="menu-toggle">☰</button>
         </div>
         <div class="nav-links">
@@ -56,13 +61,6 @@
                 <a href="{{ url_for('login') }}">Login</a>
             {% endif %}
             <a href="{{ url_for('about') }}">About</a>
-            
-            <!-- Search Box -->
-            <form action="{{ url_for('search') }}" method="GET" class="search-form">
-                <input type="text" name="query" placeholder="Search..." aria-label="Search">
-                <button type="submit"><i class="fas fa-search"></i></button>
-            </form>
-            
             <button id="darkToggle" class="btn">Toggle Dark Mode</button>
         </div>
     </nav>
