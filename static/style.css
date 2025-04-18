@@ -375,14 +375,32 @@ body.dark .menu-toggle {
 
 /* Search Box Styles */
 .search-box {
-  width: 250px; /* Increased width for desktop */
-  padding: 8px;
-  font-size: 1rem;
+  flex: 0 1 200px; /* allow shrink/grow within limits */
+  padding: 6px 10px;
+  font-size: 0.95rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  margin-left: auto; /* Aligns the search box to the right */
+  margin-left: 10px;
+  max-width: 100%;
 }
 
 .search-box:focus {
   border-color: #1877f2;
+}
+
+/* Desktop tweak to prevent nav from stretching */
+@media (min-width: 601px) {
+  nav {
+    flex-wrap: nowrap;
+  }
+
+  .nav-links {
+    flex-wrap: nowrap;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .search-box {
+    max-width: 200px;
+  }
 }
