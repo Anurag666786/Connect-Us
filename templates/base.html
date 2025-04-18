@@ -29,6 +29,7 @@
                 localStorage.setItem('darkMode', document.body.classList.contains('dark'));
             });
 
+            // Hamburger menu toggle
             const menuToggle = document.getElementById('menuToggle');
             const navLinks = document.querySelector('.nav-links');
             if (menuToggle && navLinks) {
@@ -43,10 +44,6 @@
     <nav>
         <div class="nav-header">
             <a href="{{ url_for('home') }}" class="logo">ConnectUs</a>
-            <form action="{{ url_for('search') }}" method="GET" class="search-form">
-                <input type="text" name="query" placeholder="Search..." aria-label="Search">
-                <button type="submit"><i class="fas fa-search"></i></button>
-            </form>
             <button id="menuToggle" class="menu-toggle">☰</button>
         </div>
         <div class="nav-links">

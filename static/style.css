@@ -39,41 +39,24 @@ nav {
   padding: 8px 20px;
   border-bottom: 1px solid #ddd;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 10;
-  gap: 10px;
 }
 
-.nav-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+nav a {
+  margin: 0 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .logo {
   font-size: 24px;
   font-weight: bold;
   color: #1877f2;
-}
-
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.6rem;
-  color: #1877f2;
-  cursor: pointer;
-}
-
-.nav-links {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 /* Forms */
@@ -298,46 +281,39 @@ body.dark .icon-btn.bookmarked {
   margin-bottom: 20px;
 }
 
-/* Search Form Styles */
-.search-form {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-left: 15px;
-}
+/* ------------------------------ */
+/*           NEW STYLES          */
+/* ------------------------------ */
 
-.search-form input {
-  padding: 6px 10px;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.search-form button {
-  background: #1877f2;
+/* Hamburger icon */
+.menu-toggle {
+  display: none;
+  background: none;
   border: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  color: white;
+  font-size: 1.6rem;
+  color: #1877f2;
   cursor: pointer;
 }
 
-.search-form button i {
-  font-size: 1rem;
-}
-
-body.dark .search-form input {
-  background-color: #3a3b3c;
+body.dark .menu-toggle {
   color: #e4e6eb;
-  border-color: #555;
 }
 
-body.dark .search-form button {
-  background: #1877f2;
-  color: white;
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-/* Mobile Tweaks */
+/* Nav links default */
+.nav-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Mobile tweaks */
 @media (max-width: 600px) {
   .container {
     margin: 60px 10px;
@@ -345,6 +321,7 @@ body.dark .search-form button {
   }
 
   nav {
+    flex-direction: column;
     align-items: flex-start;
   }
 
@@ -377,17 +354,5 @@ body.dark .search-form button {
 
   body, .post, .comment, input, textarea {
     font-size: 1rem;
-  }
-
-  .search-form {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    margin: 10px 0;
-  }
-
-  .search-form input,
-  .search-form button {
-    width: 100%;
   }
 }
