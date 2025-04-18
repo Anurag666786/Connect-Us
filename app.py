@@ -17,11 +17,17 @@ UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# DB config
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'site.db')
+# DB config for PostgreSQL
+db_uri = os.getenv("DATABASE_URL")
+if db_uri.startswith("postgres://"):
+    db_uri = db_uri.replace("postgres://", "postgresql://", 1)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+from flask_migrate import Migrate
+migrate = Migrate(app, db)
+
+# ... [rest of your routes unchanged] ...
+# Paste the full content from your previous `app.py` here (no changes needed beyond DB config)
 
 @app.route('/')
 def home():
@@ -209,7 +215,6 @@ def delete_comment(comment_id):
     flash("Comment deleted.", "info")
     return redirect(url_for('view_post', post_id=post_id))
 
-# Search route
 @app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('q')
