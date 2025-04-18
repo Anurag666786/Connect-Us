@@ -45,6 +45,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 10;
+  gap: 15px; /* Adds space between navbar items */
 }
 
 nav a {
@@ -57,6 +58,20 @@ nav a {
   font-size: 24px;
   font-weight: bold;
   color: #1877f2;
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-grow: 1; /* Ensures nav links take up available space */
 }
 
 /* Forms */
@@ -311,6 +326,7 @@ body.dark .menu-toggle {
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-grow: 1; /* Ensures nav links take up available space */
 }
 
 /* Mobile tweaks */
@@ -359,12 +375,12 @@ body.dark .menu-toggle {
 
 /* Search Box Styles */
 .search-box {
-  width: 200px;
+  width: 250px; /* Increased width for desktop */
   padding: 8px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  margin: 0 10px;
+  margin-left: auto; /* Aligns the search box to the right */
 }
 
 .search-box:focus {
