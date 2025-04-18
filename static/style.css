@@ -282,13 +282,35 @@ body.dark .icon-btn.bookmarked {
   nav {
     flex-direction: column;
     align-items: flex-start;
+    padding: 10px;
   }
-}
 
-/* Override form styles for comment form only */
-.comment-section form {
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
-  margin-bottom: 20px;
+  nav a {
+    margin: 8px 0;
+    font-size: 1rem;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  textarea {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  button, input[type="submit"] {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+
+  .post {
+    padding: 12px;
+  }
+
+  .comment {
+    font-size: 0.9rem;
+  }
 }
