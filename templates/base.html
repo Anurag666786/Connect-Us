@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask Blog</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-    <!-- Local Font Awesome -->
     <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/all.css') }}">
-
     <style>
         footer {
             text-align: center;
@@ -31,22 +28,36 @@
                 document.body.classList.toggle('dark');
                 localStorage.setItem('darkMode', document.body.classList.contains('dark'));
             });
+
+            // Hamburger menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.querySelector('.nav-links');
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('show');
+                });
+            }
         });
     </script>
 </head>
 <body>
     <nav>
-        <a href="{{ url_for('home') }}">Home</a>
-        {% if 'user_id' in session %}
-            <a href="{{ url_for('create') }}">Create Post</a>
-            <a href="{{ url_for('bookmarks') }}">Bookmarked Posts</a>  <!-- Link to Bookmarked Posts -->
-            <a href="{{ url_for('logout') }}">Logout ({{ session['username'] }})</a>
-        {% else %}
-            <a href="{{ url_for('signup') }}">Signup</a>
-            <a href="{{ url_for('login') }}">Login</a>
-        {% endif %}
-        <a href="{{ url_for('about') }}">About</a>
-        <button id="darkToggle" class="btn">Toggle Dark Mode</button>
+        <div class="nav-header">
+            <a href="{{ url_for('home') }}" class="logo">ConnectUs</a>
+            <button id="menuToggle" class="menu-toggle">☰</button>
+        </div>
+        <div class="nav-links">
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('create') }}">Create Post</a>
+                <a href="{{ url_for('bookmarks') }}">Bookmarked Posts</a>
+                <a href="{{ url_for('logout') }}">Logout ({{ session['username'] }})</a>
+            {% else %}
+                <a href="{{ url_for('signup') }}">Signup</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+            <a href="{{ url_for('about') }}">About</a>
+            <button id="darkToggle" class="btn">Toggle Dark Mode</button>
+        </div>
     </nav>
 
     <div class="container">
