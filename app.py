@@ -31,14 +31,18 @@ db.init_app(app)
 from flask_migrate import Migrate
 migrate = Migrate(app, db)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
-    query = request.args.get('query')  # Get search query
+    query = request.args.get('q')
+    posts = []
+
     if query:
         posts = Post.query.filter(Post.title.contains(query) | Post.content.contains(query)).all()
-    else:
-        posts = Post.query.order_by(Post.date.desc()).all()
-    return render_template('home.html', posts=posts, query=query)
+        return render_template('home.html', posts=posts, query=query)
+    
+    posts = Post.query.order_by(Post.date.desc()).all()
+    return render_template('home.html', posts=posts)
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -220,18 +224,6 @@ def delete_comment(comment_id):
     db.session.commit()
     flash("Comment deleted.", "info")
     return redirect(url_for('view_post', post_id=post_id))
-
-@app.route('/', methods=['GET'])
-def home():
-    query = request.args.get('q')
-    posts = []
-
-    if query:
-        posts = Post.query.filter(Post.title.contains(query) | Post.content.contains(query)).all()
-        return render_template('home.html', posts=posts, query=query)
-    
-    posts = Post.query.order_by(Post.date.desc()).all()
-    return render_template('home.html', posts=posts)
 
 if __name__ == '__main__':
     app.run(debug=True)
