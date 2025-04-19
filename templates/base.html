@@ -69,11 +69,11 @@
             {% endif %}
         {% endwith %}
 
-        <!-- Only show search bar on homepage -->
+        <!-- Search bar now submits to home page -->
         {% if request.path == '/' %}
             <div class="search-container">
-                <form action="/search" method="get">
-                    <input type="text" name="q" placeholder="Search posts..." required>
+                <form action="{{ url_for('home') }}" method="get">
+                    <input type="text" name="query" placeholder="Search posts..." value="{{ query or '' }}" required>
                     <button type="submit">Search</button>
                 </form>
             </div>

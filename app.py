@@ -33,8 +33,12 @@ migrate = Migrate(app, db)
 
 @app.route('/')
 def home():
-    posts = Post.query.order_by(Post.date.desc()).all()
-    return render_template('home.html', posts=posts)
+    query = request.args.get('query')  # Get search query
+    if query:
+        posts = Post.query.filter(Post.title.contains(query) | Post.content.contains(query)).all()
+    else:
+        posts = Post.query.order_by(Post.date.desc()).all()
+    return render_template('home.html', posts=posts, query=query)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -217,14 +221,17 @@ def delete_comment(comment_id):
     flash("Comment deleted.", "info")
     return redirect(url_for('view_post', post_id=post_id))
 
-@app.route('/search', methods=['GET'])
-def search():
+@app.route('/', methods=['GET'])
+def home():
     query = request.args.get('q')
+    posts = []
+
     if query:
         posts = Post.query.filter(Post.title.contains(query) | Post.content.contains(query)).all()
-        return render_template('search_results.html', posts=posts, query=query)
-    flash("No search query provided.", "warning")
-    return redirect(url_for('home'))
+        return render_template('home.html', posts=posts, query=query)
+    
+    posts = Post.query.order_by(Post.date.desc()).all()
+    return render_template('home.html', posts=posts)
 
 if __name__ == '__main__':
     app.run(debug=True)
