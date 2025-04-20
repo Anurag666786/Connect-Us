@@ -29,7 +29,6 @@
                 localStorage.setItem('darkMode', document.body.classList.contains('dark'));
             });
 
-            // Hamburger menu toggle
             const menuToggle = document.getElementById('menuToggle');
             const navLinks = document.querySelector('.nav-links');
             if (menuToggle && navLinks) {
@@ -44,8 +43,8 @@
     <nav>
         <div class="nav-header">
             <a href="{{ url_for('home') }}" class="logo">
-                <img src="{{ url_for('static', filename='logo.png') }}" alt="ConnectUs Logo" class="logo-img">
-                ConnectUs
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="ConnectUs Logo" class="logo-img">
+                <span class="logo-text">ConnectUs</span>
             </a>
             <button id="menuToggle" class="menu-toggle">☰</button>
         </div>

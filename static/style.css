@@ -54,9 +54,22 @@ nav a {
 }
 
 .logo {
-  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
   font-weight: bold;
   color: #1877f2;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 30px;
+  width: auto;
+}
+
+.logo-text {
+  font-size: 1.2rem;
 }
 
 /* Forms */
