@@ -43,20 +43,23 @@
 <body>
     <nav>
         <div class="nav-header">
-            <a href="{{ url_for('home') }}" class="logo">ConnectUs</a>
+            <a href="{{ url_for('home') }}" class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="ConnectUs Logo" class="logo-img">
+                ConnectUs
+            </a>
             <button id="menuToggle" class="menu-toggle">☰</button>
         </div>
         <div class="nav-links">
             {% if 'user_id' in session %}
                 <a href="{{ url_for('create') }}">Create Post</a>
-                <a href="{{ url_for('bookmarks') }}">Bookmarked Posts</a>
+                <a href="{{ url_for('bookmarks') }}">Bookmarked</a>
                 <a href="{{ url_for('logout') }}">Logout ({{ session['username'] }})</a>
             {% else %}
                 <a href="{{ url_for('signup') }}">Signup</a>
                 <a href="{{ url_for('login') }}">Login</a>
             {% endif %}
             <a href="{{ url_for('about') }}">About</a>
-            <button id="darkToggle" class="btn">Toggle Dark Mode</button>
+            <button id="darkToggle" class="btn">Dark Mode</button>
         </div>
     </nav>
 
@@ -69,12 +72,11 @@
             {% endif %}
         {% endwith %}
 
-        <!-- Search bar now submits to home page -->
         {% if request.path == '/' %}
             <div class="search-container">
                 <form action="{{ url_for('home') }}" method="get">
-                    <input type="text" name="query" placeholder="Search posts..." value="{{ query or '' }}" required>
-                    <button type="submit">Search</button>
+                    <input type="text" name="query" class="search-input" placeholder="Search posts..." value="{{ query or '' }}" required>
+                    <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
                 </form>
             </div>
         {% endif %}
