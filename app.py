@@ -3,52 +3,57 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from flask_migrate import Migrate
 from datetime import datetime
 import os
+
 from models import db, User, Post, Comment, Like, Bookmark
 
 # Load .env variables
 load_dotenv()
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
-# Upload config
+# Upload folder setup
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# DB config for PostgreSQL (Render) and SQLite (Local)
+# --- DATABASE CONFIG ---
 db_uri = os.getenv("DATABASE_URL")
-if db_uri and db_uri.startswith("postgres://"):
+
+if not db_uri:
+    raise RuntimeError("DATABASE_URL not set! Add it to your environment variables.")
+
+if db_uri.startswith("postgres://"):
     db_uri = db_uri.replace("postgres://", "postgresql://", 1)
-else:
-    db_uri = 'sqlite:///local_db.db'  # SQLite for local development
 
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db.init_app(app)
 
-from flask_migrate import Migrate
+db.init_app(app)
 migrate = Migrate(app, db)
+
+# ---------------------------------------
+#                ROUTES
+# ---------------------------------------
 
 @app.route('/', methods=['GET'])
 def home():
     query = request.args.get('q')
-    posts = []
-
     if query:
         posts = Post.query.filter(Post.title.contains(query) | Post.content.contains(query)).all()
         return render_template('home.html', posts=posts, query=query)
-    
     posts = Post.query.order_by(Post.date.desc()).all()
     return render_template('home.html', posts=posts)
-
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         username = request.form['username']
         password = generate_password_hash(request.form['password'])
+
         if User.query.filter_by(username=username).first():
             flash("Username already exists", "danger")
         else:
@@ -89,6 +94,7 @@ def create():
         title = request.form['title']
         content = request.form['content']
         image = None
+
         if 'image' in request.files:
             img_file = request.files['image']
             if img_file and img_file.filename != '':
@@ -108,8 +114,8 @@ def create():
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
-    is_liked = False
-    is_bookmarked = False
+    is_liked = is_bookmarked = False
+
     if 'user_id' in session:
         is_liked = Like.query.filter_by(user_id=session['user_id'], post_id=post.id).first() is not None
         is_bookmarked = Bookmark.query.filter_by(user_id=session['user_id'], post_id=post.id).first() is not None
@@ -139,6 +145,7 @@ def like(post_id):
         new_like = Like(user_id=session['user_id'], post_id=post_id)
         db.session.add(new_like)
         flash("Post liked!", "success")
+
     db.session.commit()
     return redirect(url_for('view_post', post_id=post_id))
 
@@ -156,6 +163,7 @@ def bookmark(post_id):
         new_bm = Bookmark(user_id=session['user_id'], post_id=post_id)
         db.session.add(new_bm)
         flash("Post bookmarked!", "success")
+
     db.session.commit()
     return redirect(url_for('view_post', post_id=post_id))
 
@@ -164,6 +172,7 @@ def bookmarks():
     if 'user_id' not in session:
         flash("Please log in to view bookmarks.", "warning")
         return redirect(url_for('login'))
+
     bookmarks = Bookmark.query.filter_by(user_id=session['user_id']).all()
     posts = [bookmark.post for bookmark in bookmarks]
     return render_template('bookmarks.html', posts=posts)
@@ -173,6 +182,7 @@ def likes():
     if 'user_id' not in session:
         flash("Please log in to view liked posts.", "warning")
         return redirect(url_for('login'))
+
     likes = Like.query.filter_by(user_id=session['user_id']).all()
     posts = [like.post for like in likes]
     return render_template('likes.html', posts=posts)
