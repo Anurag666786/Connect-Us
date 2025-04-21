@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <article class="post-detail container">
     <h2>{{ post.title }}</h2>
@@ -14,9 +15,9 @@
 
     {% if 'user_id' in session and session['user_id'] == post.user_id %}
         <div class="post-actions">
-            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn">Edit</a>
+            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-edit">Edit</a>
             <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" style="display:inline;">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+                <button type="submit" class="btn btn-danger btn-delete" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
             </form>
         </div>
     {% endif %}
@@ -24,12 +25,12 @@
     {% if 'user_id' in session %}
     <div class="post-actions">
         <form method="GET" action="{{ url_for('like', post_id=post.id) }}" style="display:inline;">
-            <button class="icon-btn {{ 'liked' if is_liked else '' }}" title="Like">
+            <button class="icon-btn btn-like {{ 'liked' if is_liked else '' }}" title="Like">
                 <i class="fa-solid fa-thumbs-up"></i>
             </button>
         </form>
         <form method="GET" action="{{ url_for('bookmark', post_id=post.id) }}" style="display:inline;">
-            <button class="icon-btn {{ 'bookmarked' if is_bookmarked else '' }}" title="Bookmark">
+            <button class="icon-btn btn-bookmark {{ 'bookmarked' if is_bookmarked else '' }}" title="Bookmark">
                 <i class="fa-solid fa-bookmark"></i>
             </button>
         </form>
@@ -42,7 +43,7 @@
         {% if 'user_id' in session %}
         <form method="POST">
             <textarea name="comment" id="commentText" placeholder="Add a comment..." required></textarea>
-            <button type="submit" class="btn">Post Comment</button>
+            <button type="submit" class="btn btn-submit-comment">Post Comment</button>
         </form>
         {% else %}
         <p><a href="{{ url_for('login') }}">Log in</a> to comment.</p>
