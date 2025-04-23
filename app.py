@@ -1,3 +1,6 @@
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
@@ -12,13 +15,15 @@ from models import db, User, Post, Comment, Like, Bookmark
 # Load .env variables
 load_dotenv()
 
+# Cloudinary config
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET")
+)
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
-
-# Upload folder setup
-UPLOAD_FOLDER = 'static/uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # --- DATABASE CONFIG ---
 db_uri = os.getenv("DATABASE_URL")
@@ -93,17 +98,16 @@ def create():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
-        image = None
+        image_url = None
 
         if 'image' in request.files:
             img_file = request.files['image']
             if img_file and img_file.filename != '':
-                filename = secure_filename(img_file.filename)
-                img_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                img_file.save(img_path)
-                image = f'uploads/{filename}'
+                # Upload image to Cloudinary
+                upload_result = cloudinary.uploader.upload(img_file)
+                image_url = upload_result['secure_url']
 
-        post = Post(title=title, content=content, image=image, user_id=session['user_id'])
+        post = Post(title=title, content=content, image=image_url, user_id=session['user_id'])
         db.session.add(post)
         db.session.commit()
         flash("Post created!", "success")
