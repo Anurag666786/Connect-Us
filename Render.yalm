@@ -9,5 +9,12 @@ services:
         value: production
       - key: SECRET_KEY
         value: anuragistheboss
-        DATABASE_URL=postgresql://connect_us_db_user:oklwMMSOBdXfQxK53eX6xymnyBEixMB7@dpg-d015gn95pdvs73fph2u0-a.oregon-postgres.render.com/connect_us_db
+      - key: DATABASE_URL
+        value: postgresql://connect_us_db_user:oklwMMSOBdXfQxK53eX6xymnyBEixMB7@dpg-d015gn95pdvs73fph2u0-a.oregon-postgres.render.com/connect_us_db
+      - key: CLOUDINARY_CLOUD_NAME
+        value: djrppso9i
+      - key: CLOUDINARY_API_KEY
+        value: 914395352169491
+      - key: CLOUDINARY_API_SECRET
+        value: 9DJS4W6zyW68Jr4kw8Wes7mA-gU
     autoDeploy: true
