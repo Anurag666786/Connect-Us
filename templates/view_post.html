@@ -6,7 +6,7 @@
     <p class="meta">By {{ post.author.username }} on {{ post.date.strftime('%b %d, %Y') }}</p>
 
     {% if post.image %}
-        <img src="{{ url_for('static', filename=post.image) }}" alt="Post image" class="post-image">
+        <img src="{{ post.image }}" alt="Post image" class="post-image">
     {% endif %}
 
     <p>{{ post.content }}</p>

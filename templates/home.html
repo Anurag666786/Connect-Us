@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Welcome:)</h1>
+<h1>Welcome :)</h1>
 
 <!-- Display search results if there is a query -->
 {% if query %}
@@ -11,7 +11,7 @@
         <div class="post">
             <h2>{{ post.title }}</h2>
             {% if post.image %}
-                <img src="{{ url_for('static', filename=post.image) }}">
+                <img src="{{ post.image }}" alt="Post image">
             {% endif %}
             <p>{{ post.content[:200] }}...</p>
             <a class="btn" href="{{ url_for('view_post', post_id=post.id) }}">Click here to view full post</a>
@@ -26,7 +26,7 @@
     <div class="post">
         <h2>{{ post.title }}</h2>
         {% if post.image %}
-            <img src="{{ url_for('static', filename=post.image) }}">
+            <img src="{{ post.image }}" alt="Post image">
         {% endif %}
         <p>{{ post.content[:200] }}...</p>
         <a class="btn" href="{{ url_for('view_post', post_id=post.id) }}">Click here to view full post</a>
