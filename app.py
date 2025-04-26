@@ -26,7 +26,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 
 # --- DATABASE CONFIG ---
-db_uri = os.getenv("DATABASE_URL")
+db_uri = os.getenv("https://api.cloudinary.com/v1_1/%7Bdjrppso9i%7D/image/upload")
 
 if not db_uri:
     raise RuntimeError("DATABASE_URL not set! Add it to your environment variables.")
